@@ -5,7 +5,7 @@ A Java GUI application for decrypting/encrypting text with the Caesar cipher
 
 - Windows users: Run the app by just double-clicking the Caesar.exe file -- lucky Windows users that's all you have to do :)
 
-- Linux users: You must have Java installed on your computer, which you can download from here: <https://java.com/en/download/>
+- Linux users: You must have Java installed on your computer, download from here: <https://java.com/en/download/>
 Open your command terminal, navigate to the folder where the Caesar.jar file is located and type: java -jar Caesar.jar
 
 - Mac users: I'm not sure but I assume it's as easy as the Windows users... but, you will have to run the .jar file instead of the .exe (I will get back on this soon)
@@ -24,7 +24,7 @@ Under the "File" drop down menu you can select three options:
 
 - Save -- saves the contents from the output text area into a file.
 
-- Exit -- exits the application.
+- Exit -- exits the application and quits the program.
 
 Under the "Settings" drop down menu you can select one of the two (radio button) options:
 
@@ -34,18 +34,20 @@ Under the "Settings" drop down menu you can select one of the two (radio button)
 
 Under the "Help" drop down menu currently there is only one option:
 
-- About -- displays information about the software version, the author(s), and the GNU GPL 3.0 LICENSE.
+- About -- displays information about the software version, release date, contact information, and displays the GNU GPL 3.0 LICENSE which is read from a file.
 
 - In the future, I might add a similar Short User's Manual as another option under the "Help" drop down menu...
 
 How to Encrypt your message you ask?
 
+![alt CaesarCipherCrackZ](http://www.emil.free.bg/CaesarCipherCrackZ_004.png)
+
 - Type you plain text message in the input text area or just open your text file from the File > Open menu option.
 
-- Select "Brute force" from the "Settings" drop down menu and click the "Crack it" button.
+- Select "Brute force attack" from the "Settings" drop down menu and click the "Crack it" button.
 
 - The display text area will display all 25 key encrypted variations of your text.
 
-- Copy and Paste the version you like and send it to your recipient...
+- Copy and Paste the variation you like to your message and send it to your recipient...
 
-- Or use the "Save" option under the "File" drop down menu to save all of the encrypted versions to a file for later use...
+- Or use the "Save" option under the "File" drop down menu to save all of the encrypted variations to a file for later use...
