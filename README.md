@@ -14,7 +14,7 @@ Open your command terminal, navigate to the folder where the Caesar.jar file is 
 
 - Run the program, check out the GUI visual interface that will appear on the screen.
 
-![CaesarCipherCrackZ](http://www.emil.free.bg/CaesarCipherCrackZ_010.png)
+![alt CaesarCipherCrackZ](http://www.emil.free.bg/CaesarCipherCrackZ_010.png)
 
 - From the top menu bar you can select three options: File, Settings, and Help.
 
@@ -36,16 +36,16 @@ Under the "Help" drop down menu currently there is only one option:
 
 - About -- displays information about the software version, the author(s), and the GNU GPL 3.0 LICENSE.
 
-- *Soon, I will add this or similar user's manual as another option under the "Help" drop down menu...
+- In the future, I might add a similar Short User's Manual as another option under the "Help" drop down menu...
 
 How to Encrypt your message you ask?
 
-- 1. Type you plain text message in the input text area or just open your text file from the File > Open menu option.
+- Type you plain text message in the input text area or just open your text file from the File > Open menu option.
 
-- 2. Select "Brute force" from the "Settings" drop down menu and click the "Crack it" button.
+- Select "Brute force" from the "Settings" drop down menu and click the "Crack it" button.
 
-- 3. The display text area will display all 25 key encrypted variations of your text.
+- The display text area will display all 25 key encrypted variations of your text.
 
-- 4. Copy and Paste the version you like and send it to your recipient...
+- Copy and Paste the version you like and send it to your recipient...
 
-- 5. Or use the "Save" option under the "File" drop down menu to save all of the encrypted versions to a file for later use...
+- Or use the "Save" option under the "File" drop down menu to save all of the encrypted versions to a file for later use...
