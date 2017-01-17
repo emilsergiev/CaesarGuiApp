@@ -3,15 +3,14 @@ A Java GUI application for decrypting/encrypting text with the Caesar cipher
 
 # Installation and Settings:
 
-- You must have Java installed on your computer, which you can download from here: <https://java.com/en/download/> 
+- Windows users: Run the app by just double-clicking the Caesar.exe file -- lucky Windows users that's all you have to do :)
 
-- Windows users: Run the app by just double-clicking the Caesar.jar file -- lucky Windows users that's all you have to do :)
+- Linux users: You must have Java installed on your computer, which you can download from here: <https://java.com/en/download/>
+Open your command terminal, navigate to the folder where the Caesar.jar file is located and type: java -jar Caesar.jar
 
-- Linux users: Open your terminal, navigate to the folder where the Caesar.jar file is located and type: java -jar Caesar.jar
+- Mac users: I'm not sure but I assume it's as easy as the Windows users... but, you will have to run the .jar file instead of the .exe (I will get back on this soon)
 
-- Mac users: I'm not sure but I assume it's as easy as the Windows users... (I will get back on this soon)
-
-# User's Manual:
+# Short User's Manual:
 
 - Run the program, check out the GUI visual interface that will appear on the screen.
 
@@ -25,11 +24,11 @@ Under the "File" drop down menu you can select three options:
 
 - Exit -- exits the application.
 
-Under the "Settings" drop down menu you can select two options:
+Under the "Settings" drop down menu you can select one of the two (radio button) options:
 
 - English dictionary -- the default selected which uses a 10k English words dictionary to crack the encrypted code.
 
-- Brute force -- is the other option that you can select to get the 25 key versions of the encrypted text.
+- Brute force attack -- is the other option that you can select to get the 25 key variations of the encrypted text.
 
 Under the "Help" drop down menu currently there is only one option:
 
@@ -43,7 +42,7 @@ How to Encrypt your message you ask?
 
 - 2. Select "Brute force" from the "Settings" drop down menu and click the "Crack it" button.
 
-- 3. The display text area will display all 25 key encrypted version of your text.
+- 3. The display text area will display all 25 key encrypted variations of your text.
 
 - 4. Copy and Paste the version you like and send it to your recipient...
 
