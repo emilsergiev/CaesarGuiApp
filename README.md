@@ -14,6 +14,8 @@ Open your command terminal, navigate to the folder where the Caesar.jar file is 
 
 - Run the program, check out the GUI visual interface that will appear on the screen.
 
+![CaesarCipherCrackZ](http://www.emil.free.bg/CaesarCipherCrackZ_010.png)
+
 - From the top menu bar you can select three options: File, Settings, and Help.
 
 Under the "File" drop down menu you can select three options:
