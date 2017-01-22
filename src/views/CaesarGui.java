@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import java.awt.Toolkit;
 import javax.swing.UIManager;
 import javax.swing.GroupLayout;
@@ -19,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -78,11 +81,11 @@ public class CaesarGui extends JFrame {
 	 * Create the frame.
 	 */
 	public CaesarGui() {
-		setForeground(Color.BLACK);
-		setBackground(Color.DARK_GRAY);
 		initSound();
 		initComponents();
 		createEvents();
+		setForeground(Color.BLACK);
+		setBackground(Color.DARK_GRAY);
 	}
 
 	public void initSound() {
@@ -118,17 +121,16 @@ public class CaesarGui extends JFrame {
 	}
 
 	public static String decrypt(String encrypted, byte key) {
-		encrypted = encrypted.toLowerCase();
-		encrypted = encrypted.replaceAll("[^a-z \n]", "");
+		encrypted = encrypted.toLowerCase().replaceAll("[^a-z \n]", "");
 		char[] array = encrypted.toCharArray();
 
 		for (int i = 0; i < array.length; i++) {
 			char letter = array[i];
 
 			if (letter != ' ' && letter != '\n') {
-				letter = (char) (letter - key);			
-				if (letter > 'z') letter = (char) (letter - 26);
-				if (letter < 'a') letter = (char) (letter + 26);
+				letter = (char) (letter - key);
+				if (letter > 'z') { letter = (char) (letter - 26); }
+				if (letter < 'a') { letter = (char) (letter + 26); }
 			}
 			array[i] = letter;
 		}
@@ -136,14 +138,25 @@ public class CaesarGui extends JFrame {
 	}
 
 	public static byte findBestMatch(String[] decrypted, String[] dicWords) {
-		char[] match = new char[decrypted.length]; // # of matched words in each decoded version
+		int[] match = matchedWords(decrypted, dicWords);
 		int max = match[0]; // the maximum # of matched words in each decoded version
-		byte index = 0; // the index position of the best match version which will be returned
-		// populate the match array with number of matches
+		byte position = 0; // the position of the best match version which will be returned
+		// find the most matches
+		for (byte i = 1; i < match.length; i++) {
+			if (match[i] > max) {
+				max = match[i];
+				position = i;
+			}
+		}
+		return position;
+	}
+
+	public static int[] matchedWords(String[] decrypted, String[] dicWords) {
+		int[] match = new int[decrypted.length]; // # of matched words in each decoded version
 		for (byte i = 0; i < decrypted.length; i++) {
 			String[] words = decrypted[i].split("\\s+");
 			for (int j = 0; j < words.length; j++) {
-				words[j] = words[j].replaceAll("[^\\w]", ""); // replace non-word characters
+				words[j] = words[j].replaceAll("[^\\w]", "");
 				for (int x = 0; x < dicWords.length; x++) {
 					if (words[j].equals(dicWords[x])) {
 						match[i]++;
@@ -151,14 +164,7 @@ public class CaesarGui extends JFrame {
 				}
 			}
 		}
-		// find the most matches
-		for (byte i = 1; i < match.length; i++) {
-			if (match[i] > max) {
-				max = match[i];
-				index = i;
-			}
-		}
-		return index;
+		return match;
 	}
 	/////////////////////////////////////////////////////////////////////////
 	// This method contains all of the code for creating and
@@ -167,7 +173,8 @@ public class CaesarGui extends JFrame {
 	private void initComponents() {
 		setTitle("CaesarCipherCrackZ");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/unlock.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
@@ -187,68 +194,68 @@ public class CaesarGui extends JFrame {
 
 		JScrollPane scrollPaneOutput = new JScrollPane();
 		scrollPaneOutput.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/funny-computer-gif.gif")));
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/java.gif")));
-		
+
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/anonymous.png")));
-		
+
 		JLabel lblNewLabel_3 = new JLabel("-.-- --- ..-  .-- .. .-.. .-..  .-.. --- ...- .  -- .");
 		lblNewLabel_3.setForeground(Color.BLACK);
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPaneInput, GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnCrackIt)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_3)
-								.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)))
-						.addComponent(lblEnterEncryptedText))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+										.addComponent(scrollPaneInput, GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnCrackIt)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+												.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblNewLabel_3)
+												.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)))
+								.addComponent(lblEnterEncryptedText))
+						.addContainerGap())
+				);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblEnterEncryptedText)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-							.addComponent(btnCrackIt))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPaneInput, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-							.addGap(1)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(16)
-							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-							.addComponent(lblNewLabel_2))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(5)
-							.addComponent(lblNewLabel_3)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
+						.addComponent(lblEnterEncryptedText)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblNewLabel)
+										.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+										.addComponent(btnCrackIt))
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(scrollPaneInput, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+										.addGap(1)))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(16)
+										.addComponent(lblNewLabel_1)
+										.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+										.addComponent(lblNewLabel_2))
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(5)
+										.addComponent(lblNewLabel_3)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+						.addContainerGap())
+				);
 		contentPane.setLayout(gl_contentPane);
 
 		txtEncrypted = new JTextArea();
@@ -342,7 +349,7 @@ public class CaesarGui extends JFrame {
 				String[] dicWords = new String[10000]; // the 10K English words from the dictionary
 				dicWords = readDictionary(dicWords);
 				byte bestMatch = findBestMatch(decrypted, dicWords);
-				
+
 				if (btnEnglish.isSelected()) {
 					txtDecrypted.setText(decrypted[bestMatch]);
 				} else {
@@ -387,17 +394,25 @@ public class CaesarGui extends JFrame {
 				}
 			}
 		});
-		mntmExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
 				about.setModal(true);
 				about.setVisible(true);
 			}
+		});
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int prompt = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+				if (prompt == JOptionPane.YES_OPTION) { System.exit(0); }
+			}
+		});
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent we) {
+		        int prompt = JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?");
+		        if(prompt == JOptionPane.YES_OPTION) { System.exit(0); }
+		    }
 		});
 	}
 }
