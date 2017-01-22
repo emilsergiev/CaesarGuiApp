@@ -43,7 +43,7 @@ public class CaesarGui extends JFrame {
 
 	private static final long serialVersionUID = -8794497827595862599L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private static AudioClip ThemeMusic;
+	private static AudioClip themeMusic;
 	private JPanel contentPane;
 	private JTextArea txtEncrypted;
 	private JTextArea txtDecrypted;
@@ -89,8 +89,8 @@ public class CaesarGui extends JFrame {
 	}
 
 	public void initSound() {
-		ThemeMusic = Applet.newAudioClip(getLocation("/resources/secretcode.au"));
-		ThemeMusic.loop();
+		themeMusic = Applet.newAudioClip(getLocation("/resources/secretcode.au"));
+		themeMusic.loop();
 	}
 
 	private URL getLocation(String filename) {
@@ -129,8 +129,12 @@ public class CaesarGui extends JFrame {
 
 			if (letter != ' ' && letter != '\n') {
 				letter = (char) (letter - key);
-				if (letter > 'z') { letter = (char) (letter - 26); }
-				if (letter < 'a') { letter = (char) (letter + 26); }
+				if (letter > 'z') {
+					letter = (char) (letter - 26);
+				}
+				if (letter < 'a') {
+					letter = (char) (letter + 26);
+				}
 			}
 			array[i] = letter;
 		}
@@ -182,8 +186,8 @@ public class CaesarGui extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblEnterEncryptedText = new JLabel("Enter encrypted text bellow:");
-		lblEnterEncryptedText.setForeground(Color.BLACK);
+		JLabel lblInput = new JLabel("Enter encrypted text bellow:");
+		lblInput.setForeground(Color.BLACK);
 
 		JScrollPane scrollPaneInput = new JScrollPane();
 		scrollPaneInput.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -195,17 +199,17 @@ public class CaesarGui extends JFrame {
 		JScrollPane scrollPaneOutput = new JScrollPane();
 		scrollPaneOutput.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/funny-computer-gif.gif")));
+		JLabel lblIcon1 = new JLabel("");
+		lblIcon1.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/funny-computer-gif.gif")));
 
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/java.gif")));
+		JLabel lblIcon2 = new JLabel("");
+		lblIcon2.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/java.gif")));
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/anonymous.png")));
+		JLabel lblIcon3 = new JLabel("");
+		lblIcon3.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/anonymous.png")));
 
-		JLabel lblNewLabel_3 = new JLabel("-.-- --- ..-  .-- .. .-.. .-..  .-.. --- ...- .  -- .");
-		lblNewLabel_3.setForeground(Color.BLACK);
+		JLabel lblOutput = new JLabel("-.-- --- ..-  .-- .. .-.. .-..  .-.. --- ...- .  -- .");
+		lblOutput.setForeground(Color.BLACK);
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -217,27 +221,27 @@ public class CaesarGui extends JFrame {
 										.addComponent(scrollPaneInput, GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblIcon1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 												.addComponent(btnCrackIt)))
 								.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
+												.addComponent(lblIcon3, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblIcon2, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNewLabel_3)
+												.addComponent(lblOutput)
 												.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)))
-								.addComponent(lblEnterEncryptedText))
+								.addComponent(lblInput))
 						.addContainerGap())
 				);
 		gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(lblEnterEncryptedText)
+						.addComponent(lblInput)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblNewLabel)
+										.addComponent(lblIcon1)
 										.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
 										.addComponent(btnCrackIt))
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -246,12 +250,12 @@ public class CaesarGui extends JFrame {
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 										.addGap(16)
-										.addComponent(lblNewLabel_1)
+										.addComponent(lblIcon2)
 										.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-										.addComponent(lblNewLabel_2))
+										.addComponent(lblIcon3))
 								.addGroup(gl_contentPane.createSequentialGroup()
 										.addGap(5)
-										.addComponent(lblNewLabel_3)
+										.addComponent(lblOutput)
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addComponent(scrollPaneOutput, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
 						.addContainerGap())
@@ -288,18 +292,21 @@ public class CaesarGui extends JFrame {
 		menuBar.add(mnFile);
 
 		mntmOpen = new JMenuItem("Open");
+		mntmOpen.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/document-open.png")));
 		mntmOpen.setBorderPainted(false);
 		mntmOpen.setBackground(Color.GRAY);
 		mntmOpen.setForeground(Color.BLACK);
 		mnFile.add(mntmOpen);
 
 		mntmSave = new JMenuItem("Save");
+		mntmSave.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/document-save.png")));
 		mntmSave.setBorderPainted(false);
 		mntmSave.setForeground(Color.BLACK);
 		mntmSave.setBackground(Color.GRAY);
 		mnFile.add(mntmSave);
 
 		mntmExit = new JMenuItem("Exit");
+		mntmExit.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/application-exit.png")));
 		mntmExit.setBorderPainted(false);
 		mntmExit.setBackground(Color.GRAY);
 		mntmExit.setForeground(Color.BLACK);
@@ -312,6 +319,7 @@ public class CaesarGui extends JFrame {
 		menuBar.add(mnSettings);
 
 		btnEnglish = new JRadioButtonMenuItem("English dictionary");
+		btnEnglish.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/accessories-dictionary.png")));
 		btnEnglish.setBorderPainted(false);
 		btnEnglish.setBackground(Color.GRAY);
 		btnEnglish.setForeground(Color.BLACK);
@@ -320,6 +328,7 @@ public class CaesarGui extends JFrame {
 		mnSettings.add(btnEnglish);
 
 		btnBrute = new JRadioButtonMenuItem("Brute force attack");
+		btnBrute.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/document-decrypt.png")));
 		btnBrute.setBorderPainted(false);
 		btnBrute.setForeground(Color.BLACK);
 		btnBrute.setBackground(Color.GRAY);
@@ -333,6 +342,7 @@ public class CaesarGui extends JFrame {
 		menuBar.add(mnHelp);
 
 		mntmAbout = new JMenuItem("About");
+		mntmAbout.setIcon(new ImageIcon(CaesarGui.class.getResource("/resources/help-about.png")));
 		mntmAbout.setBorderPainted(false);
 		mntmAbout.setForeground(Color.BLACK);
 		mntmAbout.setBackground(Color.GRAY);
@@ -403,14 +413,14 @@ public class CaesarGui extends JFrame {
 		});
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int prompt = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+				int prompt = JOptionPane.showOptionDialog(CaesarGui.this, "Are you sure you want to exit?", "Caesar Cipher CrackZ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (prompt == JOptionPane.YES_OPTION) { System.exit(0); }
 			}
 		});
 		addWindowListener(new WindowAdapter() {
 		    @Override
 		    public void windowClosing(WindowEvent we) {
-		        int prompt = JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?");
+		        int prompt = JOptionPane.showOptionDialog(CaesarGui.this, "Are you sure you want to exit?", "Caesar Cipher CrackZ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		        if(prompt == JOptionPane.YES_OPTION) { System.exit(0); }
 		    }
 		});
