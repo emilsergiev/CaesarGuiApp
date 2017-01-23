@@ -62,7 +62,8 @@ public class CaesarGui extends JFrame {
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Throwable e) {
+		}
+		catch (Throwable e) {
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
@@ -70,7 +71,8 @@ public class CaesarGui extends JFrame {
 				try {
 					CaesarGui frame = new CaesarGui();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -84,8 +86,6 @@ public class CaesarGui extends JFrame {
 		initSound();
 		initComponents();
 		createEvents();
-		setForeground(Color.BLACK);
-		setBackground(Color.DARK_GRAY);
 	}
 
 	public void initSound() {
@@ -95,8 +95,12 @@ public class CaesarGui extends JFrame {
 
 	private URL getLocation(String filename) {
 		URL url = null;
-		try { url = this.getClass().getResource(filename); }
-		catch (Exception e) { e.printStackTrace(); }
+		try {
+			url = this.getClass().getResource(filename);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return url;
 	}
 
@@ -104,11 +108,19 @@ public class CaesarGui extends JFrame {
 		InputStream is = getClass().getResourceAsStream("/resources/google-10000-english.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		for (int i = 0; i < dicWords.length; i++) {
-			try { dicWords[i] = br.readLine(); }
-			catch (IOException e) { e.printStackTrace(); }
+			try {
+				dicWords[i] = br.readLine();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		try { br.close(); }
-		catch (IOException e) { e.printStackTrace(); }
+		try {
+			br.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		return dicWords;
 	}
 
@@ -170,15 +182,14 @@ public class CaesarGui extends JFrame {
 		}
 		return match;
 	}
-	/////////////////////////////////////////////////////////////////////////
-	// This method contains all of the code for creating and
-	// initializing components
-	/////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
+	// This method contains all of the code for creating and initializing components //
+	///////////////////////////////////////////////////////////////////////////////////
 	private void initComponents() {
 		setTitle("CaesarCipherCrackZ");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/unlock.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
@@ -348,9 +359,9 @@ public class CaesarGui extends JFrame {
 		mntmAbout.setBackground(Color.GRAY);
 		mnHelp.add(mntmAbout);
 	}
-	/////////////////////////////////////////////////////////////////////////
-	// This method contains all of the code for creating events
-	/////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	// This method contains all of the code for creating events //
+	//////////////////////////////////////////////////////////////
 	private void createEvents() {
 		btnCrackIt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -362,7 +373,8 @@ public class CaesarGui extends JFrame {
 
 				if (btnEnglish.isSelected()) {
 					txtDecrypted.setText(decrypted[bestMatch]);
-				} else {
+				}
+				else {
 					txtDecrypted.setText("");
 					for (byte i = 0; i < decrypted.length; i++) {
 						txtDecrypted.append("===< key " + (i+1) + " >===\n" + decrypted[i] + "\n\n");
@@ -400,7 +412,10 @@ public class CaesarGui extends JFrame {
 						FileWriter fileWriter = new FileWriter(file);
 						fileWriter.write(txtDecrypted.getText());
 						fileWriter.close();
-					} catch (IOException io) { System.out.println("Problem with file"); }
+					}
+					catch (IOException io) {
+						System.out.println("Problem with file");
+					}
 				}
 			}
 		});
@@ -414,15 +429,19 @@ public class CaesarGui extends JFrame {
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int prompt = JOptionPane.showOptionDialog(CaesarGui.this, "Are you sure you want to exit?", "Caesar Cipher CrackZ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (prompt == JOptionPane.YES_OPTION) { System.exit(0); }
+				if (prompt == JOptionPane.YES_OPTION) {
+					System.exit(0); 
+				}
 			}
 		});
 		addWindowListener(new WindowAdapter() {
-		    @Override
-		    public void windowClosing(WindowEvent we) {
-		        int prompt = JOptionPane.showOptionDialog(CaesarGui.this, "Are you sure you want to exit?", "Caesar Cipher CrackZ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-		        if(prompt == JOptionPane.YES_OPTION) { System.exit(0); }
-		    }
+			@Override
+			public void windowClosing(WindowEvent we) {
+				int prompt = JOptionPane.showOptionDialog(CaesarGui.this, "Are you sure you want to exit?", "Caesar Cipher CrackZ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if(prompt == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
 		});
 	}
 }
